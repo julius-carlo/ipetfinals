@@ -1,5 +1,5 @@
 <?php
-    //require_once 'config.php';
+   // require_once 'config.php';
 
     $username = $password = $confirmPassword = '';
     $usernameErr = $passwordErr = $confirmPasswordErr = '';
@@ -8,6 +8,8 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (empty(trim($_POST['username']))) {
             $usernameErr = 'Please enter a username';
+        } elseif (strlen(trim($_POST['username'])) <= 10) {
+            $usernameErr = 'Username must have 10 characters';
         } else {
             $sql = 'SELECT * FROM users WHERE username = ?';
             $statement = mysqli_prepare($link, $sql);
@@ -64,7 +66,7 @@
                 mysqli_stmt_close($statement);
             }
         }
-      }
+    }
 
     mysqli_close($link);
 ?>
